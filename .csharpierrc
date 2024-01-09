@@ -1,0 +1,18 @@
+{
+ "$schema": "https://raw.githubusercontent.com/belav/csharpier/master/.csharpierrc.schema.json",
+ "printWidth": 80,
+ "useTabs": false,
+ "tabWidth": 4,
+ "newLine": "\n",
+ "bracesOnNewLine": true,
+ "keepBlankLines": false,
+ "maxPreserveNewlines": 2,
+ "indentStyle": "block",
+ "wrapBinaryOperators": true,
+ "wrapTernaryExpressions": true,
+ "wrapMethodChain": true,
+ "wrapLongLines": true,
+ "preserveEol": false,
+ "ignoreFiles": [],
+ "fileMasks": []
+}

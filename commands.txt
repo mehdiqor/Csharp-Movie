@@ -1,0 +1,12 @@
+dotnet new -o BuberBreakfast
+cd ./BuberBreakfast
+dotnet new classlib -o BuberBreakfast.Contracts
+dotnet new webapi -o BuberBreakfast
+dotnet sln add ./BuberBreakfast.Contracts ./BuberBreakfast
+
+
+dotnet sln add (ls -r **/*.csproj)
+dotnet add package Microsoft.EntityFrameworkCore --version 6.0.0
+dotnet run --project ./BuberBreakfast
+
+dotnet run --project .
