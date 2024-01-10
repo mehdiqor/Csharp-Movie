@@ -1,7 +1,7 @@
-namespace MovieWatchlist.Contracts.Movie;
+namespace Dto.Movie;
 
-public record MovieResponse(
-    Guid Id,
+public record CreateMovieResponse(
+    string Id,
     string Title,
     string Overview,
     // List<string> Genres,

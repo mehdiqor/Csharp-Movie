@@ -1,6 +1,7 @@
-using MovieWatchlist.Services.Movies;
 using MovieWatchlist.RequestCounter;
 using Microsoft.EntityFrameworkCore;
+using Repositories.MovieWatchlist;
+using Services.MovieWatchlist;
 using DatabaseConnection;
 using Repositories.User;
 using Services.User;
@@ -13,18 +14,29 @@ var builder = WebApplication.CreateBuilder(args);
 {
     // Database Configuration
     builder.Services.AddDbContext<MovieDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-    builder.Services.AddControllers();
-    builder.Services.AddScoped<IMovieService, MovieService>();
-    builder.Services.AddScoped<IUserService, UserService>();
-    builder.Services.AddScoped<CryptographyService>();
-    builder.Services.AddLogging();
     builder.Services.AddTransient<DatabaseConnectionVerifier>();
-    builder.Services.AddEndpointsApiExplorer();
+
+    // Global Configurations
     builder.Services.AddSingleton<IRequestCounter, RequestCounter>();
     builder.Services.AddSingleton<IJwtValidator, JwtValidator>();
-    builder.Services.AddScoped<IUserRepository, UserRepository>();
+    builder.Services.AddScoped<CryptographyService>();
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddLogging();
+
+    // Controllers
+    builder.Services.AddControllers();
+
+    // Managers
     builder.Services.AddScoped<UserManager>();
+    builder.Services.AddScoped<MovieManager>();
+
+    // Services
+    builder.Services.AddScoped<IMovieService, MovieService>();
+    builder.Services.AddScoped<IUserService, UserService>();
+
+    // Repositories
+    builder.Services.AddScoped<IUserRepository, UserRepository>();
+    builder.Services.AddScoped<IMovieRepository, MovieRepository>();
 
 
     // Swagger Configuration
@@ -48,14 +60,16 @@ if (app.Environment.IsDevelopment())
     // Verify database connection
     StartupTasks.VerifyDatabaseConnection(app);
 
-    // Middlewares
+    // Rquest Timing Middleware
     app.UseTiming();
 
-    // app.UseExceptionHandler("/error");
+    // Exception Handler Middleware
     app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
-    app.UseHttpsRedirection();
 
+    app.UseHttpsRedirection();
     app.UseRouting();
+
+    // Auth Middlewares
     app.UseAuthentication();
     app.UseAuthorization();
 

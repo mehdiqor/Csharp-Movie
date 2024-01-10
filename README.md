@@ -1,4 +1,4 @@
-### Project structure:
+## Project structure:
 
 MovieWatchlist
 │  Program.cs
@@ -16,63 +16,127 @@ MovieWatchlist
 │
 └───Dtos
 │  │  CreateMovieRequest.cs
-│  │  MovieResponse.cs
-│  │  CreateUserDto.cs
-│  │  CreateUserResponse.cs
-│  │  SigninDto.cs
+│  │  CreateMovieResponse.cs
+│  │  CreateUser.cs
+│  │  FindUserResponse.cs
+│  │  GetMovieResponse.cs
+│  │  GetUserProfileResponse.cs
+│  │  SigninRequest.cs
+│  │  SigninResponse.cs
+│
+└───Exceptions
+│  │  BadRequestException.cs
+│  │  NotFoundException.cs
+│  │  ValidationException.cs
+│  │  CustomResponse.cs
 │
 └───Helpers
 │  │  CryptoGraphy.cs
 │  │  IRequestCounter.cs
 │  │  RequestCounter.cs
+│  │  SwaggerConfig.cs
+│  
+└───Managers
+│  │  MovieManager.cs
+│  │  UserManager.cs
 │  
 └───Middlewares
+│  │  ExceptionHandlerMiddleware.cs
 │  │  IJwtValidator.cs
 │  │  JwtAuthorizationMiddleware.cs
 │  │  JwtAuthorizeAttribute.cs
 │  │  TimingMiddleware.cs
 │  
 └───Models
-│  │  Movie.cs
-│  │  User.cs
+│  │  MovieModel.cs
+│  │  UserModel.cs
 │  
-└───ServiceErrors
-│  │  Errors.Movie.cs
-│  │  Errors.User.cs
+└───Repositories
+│  │  IMovieRepository.cs
+│  │  IUserRepository.cs
+│  │  MovieRepository.cs
+│  │  UserRepository.cs
 │  
 └───Services
-│  └───Movie
-│     │  IMovieService.cs
-│     │  MovieService.cs
-│     │
-│  └───User
-│     │  IUserService.cs
-│     │  UserService.cs
-│     │
+│  │  IMovieService.cs
+│  │  MovieService.cs
+│  │  IUserService.cs
+│  │  UserService.cs
+│  
+└───Validators
+│  │  CreateMovieValidator.cs
+│  │  SigninValidator.cs
+│  │  SignupValidator.cs
+│  │
 
+
+## Project structure:
 
 MovieWatchlist
-│ Program.cs
-│ StartupTasks.cs
+│ \ Program.cs
+│ \ StartupTasks.cs
 │
+└───Contexts
+│ │ \ DatabaseConnectionVerifier.cs
+│ │ \ MovieDbContext.cs
+│ 
 └───Controllers
-│ │ ApiController.cs
-│ │ ErrorsController.cs
-│ │ MovieController.cs
-│ │ UserController.cs
+│ │ \ ApiController.cs
+│ │ \ ErrorsController.cs
+│ │ \ MovieController.cs
+│ │ \ UserController.cs
 │
+└───Dtos
+│ │ \ CreateMovieRequest.cs
+│ │ \ CreateMovieResponse.cs
+│ │ \ CreateUser.cs
+│ │ \ FindUserResponse.cs
+│ │ \ GetMovieResponse.cs
+│ │ \ GetUserProfileResponse.cs
+│ │ \ SigninRequest.cs
+│ │ \ SigninResponse.cs
+│
+└───Exceptions
+│ │ \ BadRequestException.cs
+│ │ \ NotFoundException.cs
+│ │ \ ValidationException.cs
+│ │ \ CustomResponse.cs
+│
+└───Helpers
+│ │ \ CryptoGraphy.cs
+│ │ \ IRequestCounter.cs
+│ │ \ RequestCounter.cs
+│ │ \ SwaggerConfig.cs
+│ 
 └───Managers
-│ │ MovieManager.cs
-│ │ UserManager.cs
-│
-└───Services
-│ │ MovieService.cs
-│ │ UserService.cs
-│
-└───Repositories
-│ │ MovieRepository.cs
-│ │ UserRepository.cs
-│
+│ │ \ MovieManager.cs
+│ │ \ UserManager.cs
+│ 
+└───Middlewares
+│ │ \ ExceptionHandlerMiddleware.cs
+│ │ \ IJwtValidator.cs
+│ │ \ JwtAuthorizationMiddleware.cs
+│ │ \ JwtAuthorizeAttribute.cs
+│ │ \ TimingMiddleware.cs
+│ 
 └───Models
-│ │ Movie.cs
-│ │ User.cs
+│ │ \ MovieModel.cs
+│ │ \ UserModel.cs
+│ 
+└───Repositories
+│ │ \ IMovieRepository.cs
+│ │ \ IUserRepository.cs
+│ │ \ MovieRepository.cs
+│ │ \ UserRepository.cs
+│ 
+└───Services
+│ │ \ IMovieService.cs
+│ │ \ MovieService.cs
+│ │ \ IUserService.cs
+│ │ \ UserService.cs
+│ 
+└───Validators
+│ │ \ CreateMovieValidator.cs
+│ │ \ SigninValidator.cs
+│ │ \ SignupValidator.cs
+│ │

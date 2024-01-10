@@ -1,9 +1,7 @@
-namespace MovieWatchlist.Contracts.Movie;
+namespace Dto.Movie;
 
 public record CreateMovieRequest(
     string Title,
-    string Overview,
+    string Overview
     // List<string> Genres,
-    DateTime CreationDate,
-    DateTime LastUpdated
 );
