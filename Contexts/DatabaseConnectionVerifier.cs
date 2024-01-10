@@ -1,5 +1,4 @@
 using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Logging;
 
 namespace MovieWatchlist.DatabaseConnection;
 

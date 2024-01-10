@@ -9,7 +9,7 @@ public interface IMovieService
 
     ErrorOr<Movie> GetMovie(Guid id);
 
-    ErrorOr<UpsertedMovie> UpsertMovie(Movie movie);
+    ErrorOr<Updated> UpsertMovie(Movie movie);
 
     ErrorOr<Deleted> DeleteMovie(Guid id);
 }

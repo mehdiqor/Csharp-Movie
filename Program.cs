@@ -1,10 +1,8 @@
-using ErrorOr;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using MovieWatchlist.Services.Movies;
-using MovieWatchlist.Middleware;
 using MovieWatchlist.DatabaseConnection;
+using MovieWatchlist.Services.Movies;
 using MovieWatchlist.StartupTasks;
+using MovieWatchlist.Middleware;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,11 +11,9 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddScoped<IMovieService, MovieService>();
     builder.Services.AddLogging();
     builder.Services.AddTransient<DatabaseConnectionVerifier>();
-
-    // Add Endpoints API explorer
     builder.Services.AddEndpointsApiExplorer();
-    // Add Swagger generator
     builder.Services.AddSwaggerGen();
+    builder.Services.AddDbContext<MovieDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 }
 
 var app = builder.Build();
@@ -32,7 +28,6 @@ if (app.Environment.IsDevelopment())
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
     });
 }
-
 
 {
     // Verify database connection

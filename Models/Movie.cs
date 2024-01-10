@@ -13,42 +13,47 @@ public class Movie
     public const int MaxTitleLength = 50;
     public const int MinOverviewLength = 10;
     public const int MaxOverviewLength = 150;
-    public const int MaxGenresgth = 3;
+    // public const int MaxGenresgth = 3;
 
     /*
     * Fields
     */
-    public Guid Id { get; }
-    public string Title { get; }
-    public string Overview { get; }
-    public List<string> Genres { get; }
-    public DateTime CreationDate { get; }
-    public DateTime LastUpdated { get; }
+    public Guid Id { get; set; }
+    public string? Title { get; set; }
+    public string? Overview { get; set; }
+    // public List<string> Genres { get; set; }
+    public DateTime CreationDate { get; set; }
+    public DateTime LastUpdated { get; set; }
+
+    private Movie()
+    {
+    }
 
     private Movie(
-        Guid id,
-        string title,
-        string overview,
-        List<string> genres,
-        DateTime creationDate,
-        DateTime lastUpdated
-        )
+     Guid id,
+     string title,
+     string overview,
+    // List<string> genres,
+     DateTime creationDate,
+     DateTime lastUpdated
+     )
     {
         Id = id;
         Title = title;
         Overview = overview;
-        Genres = genres;
+        // Genres = genres;
         CreationDate = creationDate;
         LastUpdated = lastUpdated;
     }
 
     public static ErrorOr<Movie> Create(
-        string title,
-        string overview,
-        List<string> genres,
-        DateTime creationDate,
-        DateTime lastUpdated
-    )
+      string title,
+      string overview,
+    // List<string> genres,
+      DateTime creationDate,
+      DateTime lastUpdated,
+      Guid id
+  )
     {
         List<Error> errors = new();
 
@@ -67,37 +72,37 @@ public class Movie
             return errors;
         }
 
-        // enforce invariants
         return new Movie(
-            // id ?? Guid.NewGuid(),
-            Guid.NewGuid(),
-            title,
-            overview,
-            genres,
-            creationDate,
-            lastUpdated
-        );
+          id,
+          title,
+          overview,
+        // genres,
+          creationDate,
+          lastUpdated
+      );
     }
 
-    public static ErrorOr<Movie> From(CreateMovieRequest request)
+    public static ErrorOr<Movie> CreateFrom(CreateMovieRequest request)
     {
         return Create(
             request.Title,
             request.Overview,
-            request.Genres,
+            // request.Genres,
             DateTime.UtcNow,
-            DateTime.UtcNow
+            DateTime.UtcNow,
+            Guid.NewGuid()
         );
     }
 
-    public static ErrorOr<Movie> From(Guid id, CreateMovieRequest request)
+    public static ErrorOr<Movie> UpdateFrom(Guid id, CreateMovieRequest request)
     {
         return Create(
             request.Title,
             request.Overview,
-            request.Genres,
+            // request.Genres,
             DateTime.UtcNow,
-            DateTime.UtcNow
+            DateTime.UtcNow,
+            id
         );
     }
 }

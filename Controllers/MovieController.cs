@@ -21,7 +21,7 @@ public class MoviesController : ApiController
     [HttpPost]
     public IActionResult CreateMovie(CreateMovieRequest request)
     {
-        ErrorOr<Movie> requestToMovieResult = Movie.From(request);
+        ErrorOr<Movie> requestToMovieResult = Movie.CreateFrom(request);
 
         if (requestToMovieResult.IsError)
         {
@@ -30,7 +30,6 @@ public class MoviesController : ApiController
 
         var movie = requestToMovieResult.Value;
 
-        // TODO: save movie in database
         ErrorOr<Created> createMovieResult = _movieService.CreateMovie(movie);
 
         return createMovieResult.Match(
@@ -59,7 +58,7 @@ public class MoviesController : ApiController
     [HttpPut("{id:guid}")]
     public IActionResult UpsertMovie(Guid id, CreateMovieRequest request)
     {
-        ErrorOr<Movie> requestToMovieResult = Movie.From(id, request);
+        ErrorOr<Movie> requestToMovieResult = Movie.UpdateFrom(id, request);
 
         if (requestToMovieResult.IsError)
         {
@@ -68,10 +67,15 @@ public class MoviesController : ApiController
 
         var movie = requestToMovieResult.Value;
 
-        ErrorOr<UpsertedMovie> upsertMovieResult = _movieService.UpsertMovie(movie);
+        ErrorOr<Updated> upsertMovieResult = _movieService.UpsertMovie(movie);
+
+        // return upsertMovieResult.Match(
+        //     upserted => upserted.IsNewCreated ? CreatedAsGetMovie(movie) : NoContent(),
+        //     errors => Problem(errors)
+        // );
 
         return upsertMovieResult.Match(
-            upserted => upserted.IsNewCreated ? CreatedAsGetMovie(movie) : NoContent(),
+            updated => Ok(new { Message = "Movie updated" }),
             errors => Problem(errors)
         );
     }
@@ -85,7 +89,7 @@ public class MoviesController : ApiController
         ErrorOr<Deleted> deleteMovieResult = _movieService.DeleteMovie(id);
 
         return deleteMovieResult.Match(
-            deleted => NoContent(),
+            deleted => Ok(new { Message = "Movie deleted" }),
             errors => Problem(errors)
         );
     }
@@ -99,7 +103,7 @@ public class MoviesController : ApiController
             movie.Id,
             movie.Title,
             movie.Overview,
-            movie.Genres,
+            // movie.Genres,
             movie.CreationDate,
             movie.LastUpdated
         );

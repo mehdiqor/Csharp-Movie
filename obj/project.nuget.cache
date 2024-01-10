@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "w1mmYnFFiqOAf3AXB20/eEL7mfc0lOOloA1sCUmkw1PClZN+O2ocIFD8CV63jF4uoKsEZKMztrgd85IL0SWonQ==",
+  "dgSpecHash": "XOqf7xLSEd4YkBs9mRxtj7R/SGFiTzHWULeFwUsUcx1hYmgNO6HCBc8+ok/8wLKUdfn3d0HUtZhi9wvV68/VFg==",
   "success": true,
   "projectFilePath": "/home/mehdi/Desktop/my-codes/MovieWatchlist/MovieWatchlist.csproj",
   "expectedPackageFiles": [
     "/home/mehdi/.nuget/packages/azure.core/1.25.0/azure.core.1.25.0.nupkg.sha512",
     "/home/mehdi/.nuget/packages/azure.identity/1.7.0/azure.identity.1.7.0.nupkg.sha512",
     "/home/mehdi/.nuget/packages/erroror/1.9.0/erroror.1.9.0.nupkg.sha512",
+    "/home/mehdi/.nuget/packages/humanizer.core/2.8.26/humanizer.core.2.8.26.nupkg.sha512",
     "/home/mehdi/.nuget/packages/microsoft.bcl.asyncinterfaces/1.1.1/microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "/home/mehdi/.nuget/packages/microsoft.csharp/4.5.0/microsoft.csharp.4.5.0.nupkg.sha512",
     "/home/mehdi/.nuget/packages/microsoft.data.sqlclient/5.1.2/microsoft.data.sqlclient.5.1.2.nupkg.sha512",
@@ -14,6 +15,7 @@
     "/home/mehdi/.nuget/packages/microsoft.entityframeworkcore/6.0.0/microsoft.entityframeworkcore.6.0.0.nupkg.sha512",
     "/home/mehdi/.nuget/packages/microsoft.entityframeworkcore.abstractions/6.0.0/microsoft.entityframeworkcore.abstractions.6.0.0.nupkg.sha512",
     "/home/mehdi/.nuget/packages/microsoft.entityframeworkcore.analyzers/6.0.0/microsoft.entityframeworkcore.analyzers.6.0.0.nupkg.sha512",
+    "/home/mehdi/.nuget/packages/microsoft.entityframeworkcore.design/6.0.0/microsoft.entityframeworkcore.design.6.0.0.nupkg.sha512",
     "/home/mehdi/.nuget/packages/microsoft.entityframeworkcore.relational/6.0.0/microsoft.entityframeworkcore.relational.6.0.0.nupkg.sha512",
     "/home/mehdi/.nuget/packages/microsoft.entityframeworkcore.sqlserver/6.0.0/microsoft.entityframeworkcore.sqlserver.6.0.0.nupkg.sha512",
     "/home/mehdi/.nuget/packages/microsoft.extensions.apidescription.server/6.0.5/microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",

@@ -1,42 +1,68 @@
-using MovieWatchlist.Models;
+using MovieWatchlist.DatabaseConnection;
+using Microsoft.EntityFrameworkCore;
 using MovieWatchlist.ServiceErrors;
+using MovieWatchlist.Models;
 using ErrorOr;
 
 namespace MovieWatchlist.Services.Movies;
 
 public class MovieService : IMovieService
 {
-    private static readonly Dictionary<Guid, Movie> _movies = new();
+    private readonly MovieDbContext _context;
+
+    public MovieService(MovieDbContext context)
+    {
+        _context = context;
+    }
 
     public ErrorOr<Created> CreateMovie(Movie movie)
     {
-        _movies.Add(movie.Id, movie);
+        _context.Movies?.Add(movie);
+        _context.SaveChanges();
 
         return Result.Created;
     }
 
     public ErrorOr<Movie> GetMovie(Guid id)
     {
-        if (_movies.TryGetValue(id, out var movie))
+        var movie = _context.Movies?.Find(id);
+
+        if (movie == null)
         {
-            return _movies[id];
+            return Errors.Movie.NotFound;
+        }
+
+        return movie;
+    }
+
+    public ErrorOr<Updated> UpsertMovie(Movie movie)
+    {
+        var existingMovie = _context.Movies?.Find(movie.Id);
+
+        if (existingMovie == null)
+        {
+            return Errors.Movie.NotFound;
+        }
+
+        _context.Entry(existingMovie).CurrentValues.SetValues(movie);
+        _context.Entry(existingMovie).State = EntityState.Modified;
+        _context.SaveChanges();
+
+        return Result.Updated;
+    }
+
+    public ErrorOr<Deleted> DeleteMovie(Guid id)
+    {
+        var movie = _context.Movies?.Find(id);
+
+        if (movie != null)
+        {
+            _context.Movies?.Remove(movie);
+            _context.SaveChanges();
+            return Result.Deleted;
         }
 
         return Errors.Movie.NotFound;
     }
 
-    public ErrorOr<UpsertedMovie> UpsertMovie(Movie movie)
-    {
-        var IsNewlyCreated = !_movies.ContainsKey(movie.Id);
-        _movies[movie.Id] = movie;
-
-        return new UpsertedMovie(IsNewlyCreated);
-    }
-
-    public ErrorOr<Deleted> DeleteMovie(Guid id)
-    {
-        _movies.Remove(id);
-
-        return Result.Deleted;
-    }
 }
