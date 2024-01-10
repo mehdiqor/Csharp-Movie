@@ -1,5 +1,6 @@
 using MovieWatchlist.Services.Movies;
 using MovieWatchlist.Contracts.Movie;
+using MovieWatchlist.RequestCounter;
 using Microsoft.AspNetCore.Mvc;
 using MovieWatchlist.Models;
 using ErrorOr;
@@ -9,10 +10,12 @@ namespace MovieWatchlist.Controllers;
 public class MoviesController : ApiController
 {
     private readonly IMovieService _movieService;
+    private readonly IRequestCounter _requestCounter;
 
-    public MoviesController(IMovieService movieService)
+    public MoviesController(IMovieService movieService, IRequestCounter requestCounter)
     {
         _movieService = movieService;
+        _requestCounter = requestCounter;
     }
 
     /*
@@ -21,6 +24,10 @@ public class MoviesController : ApiController
     [HttpPost]
     public IActionResult CreateMovie(CreateMovieRequest request)
     {
+        _requestCounter.Increment();
+        // if you want to get the number of requests:
+        // int requestCount = _requestCounter.Count;
+
         ErrorOr<Movie> requestToMovieResult = Movie.CreateFrom(request);
 
         if (requestToMovieResult.IsError)
@@ -44,6 +51,8 @@ public class MoviesController : ApiController
     [HttpGet("{id:guid}")]
     public IActionResult GetMovie(Guid id)
     {
+        _requestCounter.Increment();
+
         ErrorOr<Movie> getMovieResult = _movieService.GetMovie(id);
 
         return getMovieResult.Match(
@@ -58,6 +67,8 @@ public class MoviesController : ApiController
     [HttpPut("{id:guid}")]
     public IActionResult UpsertMovie(Guid id, CreateMovieRequest request)
     {
+        _requestCounter.Increment();
+
         ErrorOr<Movie> requestToMovieResult = Movie.UpdateFrom(id, request);
 
         if (requestToMovieResult.IsError)

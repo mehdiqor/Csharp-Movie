@@ -1,4 +1,4 @@
-namespace MovieWatchlist.Middleware;
+namespace Middlewares;
 
 public class TimingMiddleware
 {

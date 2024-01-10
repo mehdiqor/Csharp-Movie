@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "XOqf7xLSEd4YkBs9mRxtj7R/SGFiTzHWULeFwUsUcx1hYmgNO6HCBc8+ok/8wLKUdfn3d0HUtZhi9wvV68/VFg==",
+  "dgSpecHash": "IdbMk+z5OBXeHYeDAproluSVGCn4UdwfC+SJUlbEkFhNE7UPluRm9HPkxZIKegtceGtteUcrwJjguVCgZ641kw==",
   "success": true,
   "projectFilePath": "/home/mehdi/Desktop/my-codes/MovieWatchlist/MovieWatchlist.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,7 @@
     "/home/mehdi/.nuget/packages/azure.identity/1.7.0/azure.identity.1.7.0.nupkg.sha512",
     "/home/mehdi/.nuget/packages/erroror/1.9.0/erroror.1.9.0.nupkg.sha512",
     "/home/mehdi/.nuget/packages/humanizer.core/2.8.26/humanizer.core.2.8.26.nupkg.sha512",
+    "/home/mehdi/.nuget/packages/microsoft.aspnetcore.authentication.jwtbearer/6.0.0/microsoft.aspnetcore.authentication.jwtbearer.6.0.0.nupkg.sha512",
     "/home/mehdi/.nuget/packages/microsoft.bcl.asyncinterfaces/1.1.1/microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "/home/mehdi/.nuget/packages/microsoft.csharp/4.5.0/microsoft.csharp.4.5.0.nupkg.sha512",
     "/home/mehdi/.nuget/packages/microsoft.data.sqlclient/5.1.2/microsoft.data.sqlclient.5.1.2.nupkg.sha512",

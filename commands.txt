@@ -3,5 +3,7 @@ dotnet add package Microsoft.EntityFrameworkCore --version 6.0.0
 
 dotnet run --project .
 
-dotnet ef migrations add InitialCreate
+dotnet ef migrations add AddUsers
 dotnet ef database update
+
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1laGRpQGdtYWlsLmNvbSIsImp0aSI6IjlmMmExNWYxLTc5ZWEtNDJiYi05MGEwLWQyM2IwZjJiNGI5ZSIsIlVzZXJJZCI6IjY2MjZmNzU2LWIzODYtNDhkNC05NTA4LTQ0OTkxM2VmNjEwNCIsImV4cCI6MTcwNDg5MjI2OCwiaXNzIjoibWVoZGlfaXNzdWVyIiwiYXVkIjoibWVoZGlfaXNzdWVyIn0.xFq4fL2YvyXpjn2qByJr0lu0OOrJ8fmES8GPrM6BWrI
