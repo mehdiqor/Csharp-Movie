@@ -28,6 +28,7 @@ public class DatabaseConnectionVerifier
             catch (SqlException ex)
             {
                 _logger.LogError($"Failed to open connection, reason: {ex.Message}");
+                // _logger.LogError($"Failed to open connection, reason: {error}", ex.Message);
 
                 return false;
             }

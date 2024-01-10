@@ -53,7 +53,7 @@ public class Movie
       DateTime creationDate,
       DateTime lastUpdated,
       Guid id
-  )
+    )
     {
         List<Error> errors = new();
 

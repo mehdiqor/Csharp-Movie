@@ -4,13 +4,9 @@ using MovieWatchlist.Services.Movies;
 using MovieWatchlist.RequestCounter;
 using Microsoft.EntityFrameworkCore;
 using MovieWatchlist.StartupTasks;
+using Microsoft.OpenApi.Models;
 using Cryptography;
 using Middlewares;
-using Microsoft.OpenApi.Models;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.AspNetCore.Authorization;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +19,7 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddTransient<DatabaseConnectionVerifier>();
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSingleton<IRequestCounter, RequestCounter>();
+    builder.Services.AddSingleton<IJwtValidator, JwtValidator>();
 
     // Database Configuration
     builder.Services.AddDbContext<MovieDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -57,35 +54,6 @@ var builder = WebApplication.CreateBuilder(args);
             }
         });
     });
-
-    // JWT Configuration
-    builder.Services.AddAuthentication(options =>
-    {
-        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    })
-    .AddJwtBearer(options =>
-    {
-        options.RequireHttpsMetadata = false;
-        options.SaveToken = true;
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = builder.Configuration["Jwt:Issuer"],
-            ValidAudience = builder.Configuration["Jwt:Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Secret"])),
-            ClockSkew = TimeSpan.Zero
-        };
-    });
-
-    // Configure the default authorization policy
-    builder.Services.AddAuthorization(options =>
-    {
-        options.DefaultPolicy = new AuthorizationPolicyBuilder()
-            .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
-            .RequireAuthenticatedUser()
-            .Build();
-    });
 }
 
 // Build application
@@ -105,15 +73,20 @@ if (app.Environment.IsDevelopment())
     // Verify database connection
     StartupTasks.VerifyDatabaseConnection(app);
 
-    // middlewares
+    // Middlewares
     app.UseTiming();
 
     app.UseExceptionHandler("/error");
     app.UseHttpsRedirection();
-    app.MapControllers();
 
+    app.UseRouting();
     app.UseAuthentication();
     app.UseAuthorization();
+
+    app.UseEndpoints(endpoints =>
+    {
+        endpoints.MapControllers();
+    });
 
     app.Run();
 }

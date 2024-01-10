@@ -16,18 +16,21 @@ public class UsersController : ApiController
     private readonly IRequestCounter _requestCounter;
     private readonly IConfiguration _configuration;
     private readonly CryptographyService _cryptographyService;
+    private readonly IJwtValidator _jwtValidator;
 
     public UsersController(
         IUserService userService,
         IRequestCounter requestCounter,
         IConfiguration configuration,
-        CryptographyService cryptographyService
+        CryptographyService cryptographyService,
+        IJwtValidator jwtValidator
     )
     {
         _userService = userService;
         _requestCounter = requestCounter;
         _configuration = configuration;
         _cryptographyService = cryptographyService;
+        _jwtValidator = jwtValidator;
     }
 
     /*
@@ -92,14 +95,9 @@ public class UsersController : ApiController
     }
 
     [HttpGet("profile")]
-    [Authorize]
+    [JwtAuthorize]
     public async Task<IActionResult> GetMe()
     {
-        if (!HttpContext.Items.ContainsKey("Payload"))
-        {
-            return Unauthorized();
-        }
-
         var payload = HttpContext.Items["Payload"] as JwtPayload;
 
         var email = payload.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Email)?.Value;

@@ -4,9 +4,11 @@ using MovieWatchlist.RequestCounter;
 using Microsoft.AspNetCore.Mvc;
 using MovieWatchlist.Models;
 using ErrorOr;
+using Middlewares;
 
 namespace MovieWatchlist.Controllers;
 
+[JwtAuthorize]
 public class MoviesController : ApiController
 {
     private readonly IMovieService _movieService;
