@@ -65,8 +65,7 @@
 * SignupValidator.cs
 
 ## Tree structure:
-
-MovieWatchlist<br>
+|
 │ Program.cs<br>
 │ StartupTasks.cs<br>
 │<br>
