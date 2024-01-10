@@ -71,66 +71,66 @@ MovieWatchlist<br>
 │ StartupTasks.cs<br>
 │<br>
 └───Contexts<br>
-│ │ DatabaseConnectionVerifier.cs<br>
-│ │ MovieDbContext.cs<br>
+│   DatabaseConnectionVerifier.cs<br>
+│   MovieDbContext.cs<br>
 │<br>
 └───Controllers<br>
-│ │ ApiController.cs<br>
-│ │ ErrorsController.cs<br>
-│ │ MovieController.cs<br>
-│ │ UserController.cs<br>
+│   ApiController.cs<br>
+│   ErrorsController.cs<br>
+│   MovieController.cs<br>
+│   UserController.cs<br>
 │<br>
 └───Dtos<br>
-│ │ CreateMovieRequest.cs<br>
-│ │ CreateMovieResponse.cs<br>
-│ │ CreateUser.cs<br>
-│ │ FindUserResponse.cs<br>
-│ │ GetMovieResponse.cs<br>
-│ │ GetUserProfileResponse.cs<br>
-│ │ SigninRequest.cs<br>
-│ │ SigninResponse.cs<br>
+│   CreateMovieRequest.cs<br>
+│   CreateMovieResponse.cs<br>
+│   CreateUser.cs<br>
+│   FindUserResponse.cs<br>
+│   GetMovieResponse.cs<br>
+│   GetUserProfileResponse.cs<br>
+│   SigninRequest.cs<br>
+│   SigninResponse.cs<br>
 │<br>
 └───Exceptions<br>
-│ │ BadRequestException.cs<br>
-│ │ NotFoundException.cs<br>
-│ │ ValidationException.cs<br>
-│ │ CustomResponse.cs<br>
+│   BadRequestException.cs<br>
+│   NotFoundException.cs<br>
+│   ValidationException.cs<br>
+│   CustomResponse.cs<br>
 │<br>
 └───Helpers<br>
-│ │ CryptoGraphy.cs<br>
-│ │ IRequestCounter.cs<br>
-│ │ RequestCounter.cs<br>
-│ │ SwaggerConfig.cs<br>
+│   CryptoGraphy.cs<br>
+│   IRequestCounter.cs<br>
+│   RequestCounter.cs<br>
+│   SwaggerConfig.cs<br>
 │<br>
 └───Managers<br>
-│ │ MovieManager.cs<br>
-│ │ UserManager.cs<br>
+│   MovieManager.cs<br>
+│   UserManager.cs<br>
 │<br>
 └───Middlewares<br>
-│ │ ExceptionHandlerMiddleware.cs<br>
-│ │ IJwtValidator.cs<br>
-│ │ JwtAuthorizationMiddleware.cs<br>
-│ │ JwtAuthorizeAttribute.cs<br>
-│ │ TimingMiddleware.cs<br>
+│   ExceptionHandlerMiddleware.cs<br>
+│   IJwtValidator.cs<br>
+│   JwtAuthorizationMiddleware.cs<br>
+│   JwtAuthorizeAttribute.cs<br>
+│   TimingMiddleware.cs<br>
 │<br>
 └───Models<br>
-│ │ MovieModel.cs<br>
-│ │ UserModel.cs<br>
+│   MovieModel.cs<br>
+│   UserModel.cs<br>
 │<br>
 └───Repositories<br>
-│ │ IMovieRepository.cs<br>
-│ │ IUserRepository.cs<br>
-│ │ MovieRepository.cs<br>
-│ │ UserRepository.cs<br>
+│   IMovieRepository.cs<br>
+│   IUserRepository.cs<br>
+│   MovieRepository.cs<br>
+│   UserRepository.cs<br>
 │<br>
 └───Services<br>
-│ │ IMovieService.cs<br>
-│ │ MovieService.cs<br>
-│ │ IUserService.cs<br>
-│ │ UserService.cs<br>
+│   IMovieService.cs<br>
+│   MovieService.cs<br>
+│   IUserService.cs<br>
+│   UserService.cs<br>
 │<br>
 └───Validators<br>
-│ │ CreateMovieValidator.cs<br>
-│ │ SigninValidator.cs<br>
-│ │ SignupValidator.cs<br>
-│ │<br>
+│   CreateMovieValidator.cs<br>
+│   SigninValidator.cs<br>
+│   SignupValidator.cs<br>
+│<br>
