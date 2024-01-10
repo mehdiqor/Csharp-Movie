@@ -1,8 +1,8 @@
-namespace UserAuthentication.Contracts.User;
+namespace Dto.User;
 
-public record CreateUserDto(
+public record GetUserProfileResponse(
+    string Id,
     string Fullname,
-    string Password,
     string Email,
     DateTime CreationDate,
     DateTime LastUpdated

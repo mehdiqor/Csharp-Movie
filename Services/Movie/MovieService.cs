@@ -1,4 +1,4 @@
-using MovieWatchlist.DatabaseConnection;
+using DatabaseConnection;
 using Microsoft.EntityFrameworkCore;
 using MovieWatchlist.ServiceErrors;
 using MovieWatchlist.Models;

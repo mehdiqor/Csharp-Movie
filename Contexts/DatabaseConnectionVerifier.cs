@@ -1,6 +1,6 @@
 using Microsoft.Data.SqlClient;
 
-namespace MovieWatchlist.DatabaseConnection;
+namespace DatabaseConnection;
 
 public class DatabaseConnectionVerifier
 {
@@ -21,14 +21,13 @@ public class DatabaseConnectionVerifier
 
                 connection.Open();
 
-                _logger.LogInformation("Successfully opened connection");
+                _logger.LogInformation("Successfully opened connection to SqlServer");
 
                 return true;
             }
             catch (SqlException ex)
             {
-                _logger.LogError($"Failed to open connection, reason: {ex.Message}");
-                // _logger.LogError($"Failed to open connection, reason: {error}", ex.Message);
+                _logger.LogError($"Failed to open connection, reason: {ex}", ex.Message);
 
                 return false;
             }

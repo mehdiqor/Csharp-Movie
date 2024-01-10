@@ -1,11 +1,10 @@
-using UserAuthentication.Models;
-using ErrorOr;
+using Dto.User;
 
-namespace UserAuthentication.Services.Users;
+namespace Services.User;
 
 public interface IUserService
 {
-    Task<ErrorOr<Created>> SignupUser(UserAuth user);
-
-    Task<UserAuth?> FindByEmail(string email);
+    Task<string> SignupUser(CreateUser data);
+    Task<SigninResponse> SigninUser(SigninRequest data);
+    Task<GetUserProfileResponse> GetMyProfile(string email);
 }

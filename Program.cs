@@ -1,16 +1,19 @@
-using MovieWatchlist.DatabaseConnection;
-using UserAuthentication.Services.Users;
 using MovieWatchlist.Services.Movies;
 using MovieWatchlist.RequestCounter;
 using Microsoft.EntityFrameworkCore;
-using MovieWatchlist.StartupTasks;
-using Microsoft.OpenApi.Models;
+using DatabaseConnection;
+using Repositories.User;
+using Services.User;
 using Cryptography;
 using Middlewares;
+using AppStartup;
 
 var builder = WebApplication.CreateBuilder(args);
 
 {
+    // Database Configuration
+    builder.Services.AddDbContext<MovieDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
     builder.Services.AddControllers();
     builder.Services.AddScoped<IMovieService, MovieService>();
     builder.Services.AddScoped<IUserService, UserService>();
@@ -20,40 +23,12 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSingleton<IRequestCounter, RequestCounter>();
     builder.Services.AddSingleton<IJwtValidator, JwtValidator>();
+    builder.Services.AddScoped<IUserRepository, UserRepository>();
+    builder.Services.AddScoped<UserManager>();
 
-    // Database Configuration
-    builder.Services.AddDbContext<MovieDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
     // Swagger Configuration
-    builder.Services.AddSwaggerGen(opt =>
-    {
-        opt.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
-
-        opt.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-        {
-            In = ParameterLocation.Header,
-            Description = "Please enter token",
-            Name = "Authorization",
-            Type = SecuritySchemeType.Http,
-            BearerFormat = "JWT",
-            Scheme = "bearer"
-        });
-
-        opt.AddSecurityRequirement(new OpenApiSecurityRequirement
-        {
-            {
-                new OpenApiSecurityScheme
-                {
-                    Reference = new OpenApiReference
-                    {
-                        Type=ReferenceType.SecurityScheme,
-                        Id="Bearer"
-                    }
-                },
-                new string[]{}
-            }
-        });
-    });
+    SwaggerConfig.ConfigureSwagger(builder.Services);
 }
 
 // Build application
@@ -76,7 +51,8 @@ if (app.Environment.IsDevelopment())
     // Middlewares
     app.UseTiming();
 
-    app.UseExceptionHandler("/error");
+    // app.UseExceptionHandler("/error");
+    app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
     app.UseHttpsRedirection();
 
     app.UseRouting();

@@ -1,9 +1,16 @@
-using MovieWatchlist.DatabaseConnection;
+using DatabaseConnection;
 
-namespace MovieWatchlist.StartupTasks;
+namespace AppStartup;
 
 public static class StartupTasks
 {
+    private static ILogger? _logger;
+
+    public static void Initialize(ILogger logger)
+    {
+        _logger = logger;
+    }
+
     public static void VerifyDatabaseConnection(WebApplication app)
     {
         var serviceProvider = app.Services;
@@ -13,8 +20,7 @@ public static class StartupTasks
 
         if (!isServerConnected)
         {
-            throw new InvalidOperationException("Unable to connect to the database");
+            _logger?.LogError("Unable to connect to the database");
         }
     }
 }
-

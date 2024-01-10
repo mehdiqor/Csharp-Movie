@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using UserAuthentication.Models;
 using MovieWatchlist.Models;
 
-namespace MovieWatchlist.DatabaseConnection;
+namespace DatabaseConnection;
 
 public class MovieDbContext : DbContext
 {

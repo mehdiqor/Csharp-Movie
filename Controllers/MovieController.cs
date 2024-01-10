@@ -3,8 +3,8 @@ using MovieWatchlist.Contracts.Movie;
 using MovieWatchlist.RequestCounter;
 using Microsoft.AspNetCore.Mvc;
 using MovieWatchlist.Models;
-using ErrorOr;
 using Middlewares;
+using ErrorOr;
 
 namespace MovieWatchlist.Controllers;
 
