@@ -64,7 +64,7 @@
 * SigninValidator.cs
 * SignupValidator.cs
 
-## Project structure:
+## Tree structure:
 
 MovieWatchlist<br>
 │ Program.cs<br>
