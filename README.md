@@ -11,8 +11,8 @@
 * Swagger Documentation: The application includes Swagger for automatically generating interactive API documentation.
 
 * Input Validation: The application uses FluentValidation for validating input data. It includes validation rules for both format and database logic.
-* 
-Logging: The application uses Serilog for logging. It logs important events and errors, which can be useful for troubleshooting and monitoring.
+
+* Logging: The application uses Serilog for logging. It logs important events and errors, which can be useful for troubleshooting and monitoring.
 
 * Interfaces and Dependency Injection: The application follows the principles of SOLID design and uses interfaces for all classes. It also uses the built-in .NET Core dependency injection container for registering services and interfaces.
 
@@ -30,7 +30,7 @@ To get started with the project:
 3. Ensure that you have the .NET 6.0 SDK installed on your machine.
 4. Install Docker on your machine, as the project uses Docker to run the SQL Server.
 
-The project includes a docker-compose.yml file that defines a SQL Server service. To start the SQL Server, navigate to the project root directory in your terminal and run the following command:
+The project includes a `docker-compose.yml` file that defines a SQL Server service. To start the SQL Server, navigate to the project root directory in your terminal and run the following command:
 ```yml
 docker-compose up -d
 ```
