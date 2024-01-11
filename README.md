@@ -1,3 +1,43 @@
+# Movie Watchlist
+* This project is a .NET 6.0 application that implements a CRUD (Create, Read, Update, Delete) service for managing a movie watchlist. The application uses Entity Framework Core for data access, Identity library for user authentication, FluentValidation for input validation, and Serilog for logging. It also includes Swagger for API documentation and JWT for token-based authentication.
+
+## Features
+* CRUD Operations: The application provides full CRUD operations for movies. Users can add new movies, view details of existing movies, update movie details, and delete movies.
+
+* User Authentication: The application uses the Identity library for user authentication. It supports login and registration functionality, and uses JWT for token-based authentication.
+
+* Database Migrations: The application uses Entity Framework Core migrations for database schema management. It includes a sample entity and corresponding migrations for demonstration purposes.
+
+* Swagger Documentation: The application includes Swagger for automatically generating interactive API documentation.
+
+* Input Validation: The application uses FluentValidation for validating input data. It includes validation rules for both format and database logic.
+* 
+Logging: The application uses Serilog for logging. It logs important events and errors, which can be useful for troubleshooting and monitoring.
+
+* Interfaces and Dependency Injection: The application follows the principles of SOLID design and uses interfaces for all classes. It also uses the built-in .NET Core dependency injection container for registering services and interfaces.
+
+* Hexagonal Architecture: The application follows the principles of Hexagonal Architecture. It separates concerns into independent layers, making the code easier to maintain and test.
+
+* Middleware: The application includes custom middleware for handling exceptions and authentication.
+
+* Request and Response DTOs: The application uses Data Transfer Objects (DTOs) for requests and responses. This helps in keeping the API clean and organized.
+
+
+## Getting Started
+To get started with the project:
+1. Clone the repository to your local machine.
+2. Open the project in your preferred Integrated Development Environment (IDE).
+3. Ensure that you have the .NET 6.0 SDK installed on your machine.
+4. Install Docker on your machine, as the project uses Docker to run the SQL Server.
+
+The project includes a docker-compose.yml file that defines a SQL Server service. To start the SQL Server, navigate to the project root directory in your terminal and run the following command:
+```yml
+docker-compose up -d
+```
+
+You can then interact with the API using a tool like Postman or curl.
+The API documentation is available at http://localhost:5169/swagger.
+
 ## Project Structure:
 
 #### Contexts
@@ -65,7 +105,7 @@
 * SignupValidator.cs
 
 ## Tree structure:
-|
+|<br>
 │ Program.cs<br>
 │ StartupTasks.cs<br>
 │<br>
