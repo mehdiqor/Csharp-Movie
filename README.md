@@ -1,175 +1,160 @@
-# Movie Watchlist
-* This project is a .NET 6.0 application that implements a CRUD (Create, Read, Update, Delete) service for managing a movie watchlist. The application uses Entity Framework Core for data access, Identity library for user authentication, FluentValidation for input validation, and Serilog for logging. It also includes Swagger for API documentation and JWT for token-based authentication.
+# C# Movie Watchlist API
+
+## Overview
+
+This project is a .NET 6.0 application designed to provide a CRUD service for managing a movie watchlist.
+It is built with a focus on Hexagonal Architecture principles to ensure maintainability and scalability.
 
 ## Features
-* CRUD Operations: The application provides full CRUD operations for movies. Users can add new movies, view details of existing movies, update movie details, and delete movies.
 
-* User Authentication: The application uses the Identity library for user authentication. It supports login and registration functionality, and uses JWT for token-based authentication.
+- **User Authentication**: Secure user registration and authentication using JWT tokens.
+- **CRUD Operations**: Create, read, update, and delete operations for managing movies.
+- **Database Migrations**: Easy database schema evolution with `Entity Framework Core` migrations.
+- **Swagger Documentation**: Auto-generated API documentation and testing interface with Swagger.
+- **Input Validation**: Robust input validation using `FluentValidation`.
+- **Logging**: Application logging with `Serilog`.
+- **Dependency Injection**: Built-in support for dependency injection to promote loose coupling.
+- **Custom Middleware**: Custom middleware for exception handling, JWT authorization, and request timing.
 
-* Database Migrations: The application uses Entity Framework Core migrations for database schema management. It includes a sample entity and corresponding migrations for demonstration purposes.
+## Architecture
 
-* Swagger Documentation: The application includes Swagger for automatically generating interactive API documentation.
+The project adheres to Hexagonal Architecture, organizing the code into the following layers:
 
-* Input Validation: The application uses FluentValidation for validating input data. It includes validation rules for both format and database logic.
+- **Controllers**: API endpoints for handling HTTP requests.
+- **Managers**: Interfaces defining contracts for operations related to movies and user management.
+- This layer serves as a bridge between the `Controllers` and `Services`,
+- ensuring a separation of concerns and facilitating easier testing and maintenance.
+- **Services**: Business logic implementation.
+- **Repositories**: Data access layer for interacting with the database.
+- **Models**: Entity representations.
+- **DTOs**: Data transfer objects for encapsulating request and response data.
+- **Validators**: Validation rules for incoming data.
+- **Middlewares**: HTTP request processing.
+- **Helpers**: Utility classes.
+- **Exceptions**: Custom exception types for error handling.
 
-* Logging: The application uses Serilog for logging. It logs important events and errors, which can be useful for troubleshooting and monitoring.
-
-* Interfaces and Dependency Injection: The application follows the principles of SOLID design and uses interfaces for all classes. It also uses the built-in .NET Core dependency injection container for registering services and interfaces.
-
-* Hexagonal Architecture: The application follows the principles of Hexagonal Architecture. It separates concerns into independent layers, making the code easier to maintain and test.
-
-* Middleware: The application includes custom middleware for handling exceptions and authentication.
-
-* Request and Response DTOs: The application uses Data Transfer Objects (DTOs) for requests and responses. This helps in keeping the API clean and organized.
-
+Each layer has its own responsibility and is designed to be loosely coupled with the others,
+promoting a maintainable and scalable codebase.
 
 ## Getting Started
-To get started with the project:
-1. Clone the repository to your local machine.
-2. Open the project in your preferred Integrated Development Environment (IDE).
-3. Ensure that you have the .NET 6.0 SDK installed on your machine.
-4. Install Docker on your machine, as the project uses Docker to run the SQL Server.
 
-The project includes a `docker-compose.yml` file that defines a SQL Server service. To start the SQL Server, navigate to the project root directory in your terminal and run the following command:
-```yml
-docker-compose up -d
+### Prerequisites
+
+- .NET 6.0 SDK
+- A supported SQL-Server database
+- You can use `Docker Compose` to run the SQL-Server database:
+
+```docker
+   docker-compose up -d
 ```
 
-You can then interact with the API using a tool like Postman or curl.
-The API documentation is available at http://localhost:5169/swagger.
+### Setup
 
-## Project Structure:
+1. Clone the repository:
+    ```shell
+      git clone https://github.com/mehdiqor/csharp-movie.git
+    ```
 
-#### Contexts
-* DatabaseConnectionVerifier.cs
-* MovieDbContext.cs
+2. Navigate to the project directory:
+    ```shell
+      cd csharp-movie
+    ```
 
-#### Controllers
-* ApiController.cs
-* ErrorsController.cs
-* MovieController.cs
-* UserController.cs
+3. Restore the .NET packages:
+    ```shell
+      dotnet restore
+    ```
 
-#### Dtos
-* CreateMovieRequest.cs
-* CreateMovieResponse.cs
-* CreateUser.cs
-* FindUserResponse.cs
-* GetMovieResponse.cs
-* GetUserProfileResponse.cs
-* SigninRequest.cs
-* SigninResponse.cs
+4. Update the database connection string in `appsettings.json` to point to your SQL database.
 
-#### Exceptions
-* BadRequestException.cs
-* NotFoundException.cs
-* ValidationException.cs
-* CustomResponse.cs
+5. Apply the database migrations:
+    ```shell
+      dotnet ef database update
+    ```
 
-#### Helpers
-* Cryptography.cs
-* IRequestCounter.cs
-* RequestCounter.cs
-* SwaggerConfig.cs
+### Running the Application
 
-#### Managers
-* MovieManager.cs
-* UserManager.cs
+Run the application using the following command:
 
-#### Middlewares
-* ExceptionHandlerMiddleware.cs
-* IJwtValidator.cs
-* JwtAuthorizationMiddleware.cs
-* JwtAuthorizeAttribute.cs
-* TimingMiddleware.cs
+```shell
+  dotnet run
+```
 
-#### Models
-* MovieModel.cs
-* UserModel.cs
+The API will be hosted by default at `http://localhost:7048`.
 
-#### Repositories
-* IMovieRepository.cs
-* IUserRepository.cs
-* MovieRepository.cs
-* UserRepository.cs
+### Using the API
 
-#### Services
-* IMovieService.cs
-* MovieService.cs
-* IUserService.cs
-* UserService.cs
+Access the Swagger UI to test the API endpoints at `http://localhost:7048/swagger`.
 
-#### Validators
-* CreateMovieValidator.cs
-* SigninValidator.cs
-* SignupValidator.cs
+## Repository Structure
 
-## Tree structure:
+- This structure provides a high-level overview of the project's organization,
+  making it easier for new contributors to understand where different types of files are located.
+
+Below is a tree structure of the main directories and files in this repository:
+
 |<br>
 │ Program.cs<br>
 │ StartupTasks.cs<br>
 │<br>
 └───Contexts<br>
-│   DatabaseConnectionVerifier.cs<br>
-│   MovieDbContext.cs<br>
+│ DatabaseConnectionVerifier.cs<br>
+│ MovieDbContext.cs<br>
 │<br>
 └───Controllers<br>
-│   ApiController.cs<br>
-│   ErrorsController.cs<br>
-│   MovieController.cs<br>
-│   UserController.cs<br>
+│ ApiController.cs<br>
+│ ErrorsController.cs<br>
+│ MovieController.cs<br>
+│ UserController.cs<br>
 │<br>
 └───Dtos<br>
-│   CreateMovieRequest.cs<br>
-│   CreateMovieResponse.cs<br>
-│   CreateUser.cs<br>
-│   FindUserResponse.cs<br>
-│   GetMovieResponse.cs<br>
-│   GetUserProfileResponse.cs<br>
-│   SigninRequest.cs<br>
-│   SigninResponse.cs<br>
+│ CreateMovieRequest.cs<br>
+│ CreateMovieResponse.cs<br>
+│ ...Other Dtos<br>
 │<br>
 └───Exceptions<br>
-│   BadRequestException.cs<br>
-│   NotFoundException.cs<br>
-│   ValidationException.cs<br>
-│   CustomResponse.cs<br>
+│ BadRequestException.cs<br>
+│ NotFoundException.cs<br>
+│ ValidationException.cs<br>
+│ ForbiddenException.cs<br>
+│ CustomResponse.cs<br>
 │<br>
 └───Helpers<br>
-│   Cryptography.cs<br>
-│   IRequestCounter.cs<br>
-│   RequestCounter.cs<br>
-│   SwaggerConfig.cs<br>
+│ Cryptography.cs<br>
+│ IRequestCounter.cs<br>
+│ RequestCounter.cs<br>
+│ SwaggerConfig.cs<br>
 │<br>
 └───Managers<br>
-│   MovieManager.cs<br>
-│   UserManager.cs<br>
+│ IMovieManager.cs<br>
+│ MovieManager.cs<br>
+│ IUserManager.cs<br>
+│ UserManager.cs<br>
 │<br>
 └───Middlewares<br>
-│   ExceptionHandlerMiddleware.cs<br>
-│   IJwtValidator.cs<br>
-│   JwtAuthorizationMiddleware.cs<br>
-│   JwtAuthorizeAttribute.cs<br>
-│   TimingMiddleware.cs<br>
+│ ExceptionHandlerMiddleware.cs<br>
+│ IJwtValidator.cs<br>
+│ JwtAuthorizationMiddleware.cs<br>
+│ JwtAuthorizeAttribute.cs<br>
+│ TimingMiddleware.cs<br>
 │<br>
 └───Models<br>
-│   MovieModel.cs<br>
-│   UserModel.cs<br>
+│ MovieModel.cs<br>
+│ UserModel.cs<br>
 │<br>
 └───Repositories<br>
-│   IMovieRepository.cs<br>
-│   IUserRepository.cs<br>
-│   MovieRepository.cs<br>
-│   UserRepository.cs<br>
+│ IMovieRepository.cs<br>
+│ IUserRepository.cs<br>
+│ MovieRepository.cs<br>
+│ UserRepository.cs<br>
 │<br>
 └───Services<br>
-│   IMovieService.cs<br>
-│   MovieService.cs<br>
-│   IUserService.cs<br>
-│   UserService.cs<br>
+│ IMovieService.cs<br>
+│ MovieService.cs<br>
+│ IUserService.cs<br>
+│ UserService.cs<br>
 │<br>
 └───Validators<br>
-│   CreateMovieValidator.cs<br>
-│   SigninValidator.cs<br>
-│   SignupValidator.cs<br>
+│ CreateMovieValidator.cs<br>
+│ ...Other Validators<br>
 │<br>
