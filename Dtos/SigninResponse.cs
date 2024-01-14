@@ -1,4 +1,4 @@
-namespace Dto.User;
+namespace MovieWatchlist.Dtos;
 
 public record SigninResponse(
     string Token

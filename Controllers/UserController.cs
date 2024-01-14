@@ -1,19 +1,20 @@
 using System.IdentityModel.Tokens.Jwt;
-using MovieWatchlist.RequestCounter;
 using Microsoft.AspNetCore.Mvc;
-using Middlewares;
-using Dto.User;
+using MovieWatchlist.Managers;
+using MovieWatchlist.Dtos;
+using MovieWatchlist.Helpers;
+using MovieWatchlist.Middlewares;
 
 namespace MovieWatchlist.Controllers;
 
 public class UsersController : ApiController
 {
     private readonly IRequestCounter _requestCounter;
-    private readonly UserManager _userManager;
+    private readonly IUserManager _userManager;
 
     public UsersController(
         IRequestCounter requestCounter,
-        UserManager userManager
+        IUserManager userManager
     )
     {
         _requestCounter = requestCounter;

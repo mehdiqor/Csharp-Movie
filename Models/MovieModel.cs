@@ -1,25 +1,28 @@
-
-using Dto.Movie;
+using System.ComponentModel.DataAnnotations;
+using MovieWatchlist.Dtos;
 
 namespace MovieWatchlist.Models;
 
 public class Movie
 {
     public Guid Id { get; set; }
-    public string Title { get; set; }
-    public string Overview { get; set; }
+
+    [MaxLength(15)] public string Title { get; set; }
+
+    [MaxLength(50)] public string Overview { get; set; }
+
     // public List<string> Genres { get; set; }
     public DateTime CreationDate { get; set; }
     public DateTime LastUpdated { get; set; }
 
     private Movie(
-     Guid id,
-     string title,
-     string overview,
-     // List<string> genres,
-     DateTime creationDate,
-     DateTime lastUpdated
-     )
+        Guid id,
+        string title,
+        string overview,
+        // List<string> genres,
+        DateTime creationDate,
+        DateTime lastUpdated
+    )
     {
         Id = id;
         Title = title;
@@ -29,48 +32,48 @@ public class Movie
         LastUpdated = lastUpdated;
     }
 
-    public static Movie Create(
-      string title,
-      string overview,
-      // List<string> genres,
-      DateTime creationDate,
-      DateTime lastUpdated,
-      Guid id
+    private static Movie Create(
+        string title,
+        string overview,
+        // List<string> genres,
+        DateTime creationDate,
+        DateTime lastUpdated,
+        Guid id
     )
     {
         return new Movie(
-          id,
-          title,
-          overview,
-          // genres,
-          creationDate,
-          lastUpdated
-      );
+            id,
+            title,
+            overview,
+            // genres,
+            creationDate,
+            lastUpdated
+        );
     }
 
     public static Movie CreateFrom(CreateMovieRequest request)
     {
+        var now = DateTime.UtcNow;
+
         return Create(
             request.Title,
             request.Overview,
             // request.Genres,
-            DateTime.UtcNow,
-            DateTime.UtcNow,
+            now,
+            now,
             Guid.NewGuid()
         );
     }
 
-    public static Movie UpdateFrom(Guid id, CreateMovieRequest request)
+    public static Movie UpdateFrom(Guid id, UpdateMovieFrom data)
     {
         return Create(
-            request.Title,
-            request.Overview,
-            // request.Genres,
-            // fix creation date
-            DateTime.UtcNow,
+            data.Title,
+            data.Overview,
+            // data.Genres,
+            data.CreationDate,
             DateTime.UtcNow,
             id
         );
     }
 }
-

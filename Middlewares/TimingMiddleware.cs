@@ -1,4 +1,6 @@
-namespace Middlewares;
+using System.Globalization;
+
+namespace MovieWatchlist.Middlewares;
 
 public class TimingMiddleware
 {
@@ -16,13 +18,14 @@ public class TimingMiddleware
         var start = DateTime.UtcNow;
         await _next.Invoke(ctx);
 
-        _logger.LogInformation(
-            $"Timing for request: {ctx.Request.Path} => {(DateTime.UtcNow - start).TotalMilliseconds}ms"
-            );
+        var path = ctx.Request.Path.ToString();
+        var time = ((DateTime.UtcNow - start).TotalMilliseconds).ToString(CultureInfo.InvariantCulture);
+
+        _logger.LogInformation("Timing for request: {Path} => {Time}ms", path, time);
     }
 }
 
-public static class TimingExtentions
+public static class TimingExtensions
 {
     public static IApplicationBuilder UseTiming(this IApplicationBuilder app)
     {

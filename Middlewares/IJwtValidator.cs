@@ -1,4 +1,4 @@
-namespace Middlewares;
+namespace MovieWatchlist.Middlewares;
 
 public interface IJwtValidator
 {

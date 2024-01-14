@@ -1,10 +1,10 @@
-using UserAuthentication.Models;
-using Dto.User;
+using MovieWatchlist.Models;
+using MovieWatchlist.Dtos;
 
-namespace Repositories.User;
+namespace MovieWatchlist.Repositories;
 
 public interface IUserRepository
 {
    Task AddNewUser(UserAuth user);
-   Task<FindUserResponse?> FindUserByEmail(string email);
+   Task<UserAuth> FindUserByEmail(string email);
 }

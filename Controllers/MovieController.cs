@@ -1,7 +1,8 @@
-using MovieWatchlist.RequestCounter;
 using Microsoft.AspNetCore.Mvc;
-using Middlewares;
-using Dto.Movie;
+using MovieWatchlist.Managers;
+using MovieWatchlist.Helpers;
+using MovieWatchlist.Dtos;
+using MovieWatchlist.Middlewares;
 
 namespace MovieWatchlist.Controllers;
 
@@ -9,12 +10,12 @@ namespace MovieWatchlist.Controllers;
 public class MoviesController : ApiController
 {
     private readonly IRequestCounter _requestCounter;
-    private readonly MovieManager _movieManager;
+    private readonly IMovieManager _movieManager;
 
     public MoviesController(
         IRequestCounter requestCounter,
-        MovieManager movieManager
-        )
+        IMovieManager movieManager
+    )
     {
         _requestCounter = requestCounter;
         _movieManager = movieManager;
@@ -25,7 +26,7 @@ public class MoviesController : ApiController
     {
         _requestCounter.Increment();
         // if you want to get the number of requests:
-        // int requestCount = _requestCounter.Count;
+        // var requestCount = _requestCounter.Count;
 
         var result = await _movieManager.CreateMovie(request);
         return Ok(result);
@@ -54,7 +55,7 @@ public class MoviesController : ApiController
     {
         _requestCounter.Increment();
 
-        await _movieManager.DeleteMovie(id);
-        return NoContent();
+        var result = await _movieManager.DeleteMovie(id);
+        return Ok(result);
     }
 }

@@ -2,7 +2,7 @@ using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-namespace Middlewares;
+namespace MovieWatchlist.Middlewares;
 
 public class JwtValidator : IJwtValidator
 {
@@ -27,7 +27,7 @@ public class JwtValidator : IJwtValidator
                 ValidateIssuer = false,
                 ValidateAudience = false,
                 ClockSkew = TimeSpan.Zero
-            }, out SecurityToken validatedToken);
+            }, out var validatedToken);
 
             return true;
         }

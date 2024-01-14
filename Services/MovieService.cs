@@ -1,13 +1,12 @@
-
-using Repositories.MovieWatchlist;
+using MovieWatchlist.Repositories;
+using MovieWatchlist.Exceptions;
 using MovieWatchlist.Models;
-using Dto.Movie;
+using MovieWatchlist.Dtos;
 
-namespace Services.MovieWatchlist;
+namespace MovieWatchlist.Services;
 
 public class MovieService : IMovieService
 {
-
     private readonly IMovieRepository _movieRepository;
     private readonly ILogger<MovieService> _logger;
 
@@ -20,7 +19,7 @@ public class MovieService : IMovieService
         _logger = logger;
     }
 
-    public async Task<CreateMovieResponse> CreateMovie(CreateMovieRequest data)
+    public async Task<ServiceResponse> CreateMovie(CreateMovieRequest data)
     {
         try
         {
@@ -29,22 +28,27 @@ public class MovieService : IMovieService
 
             _logger.LogInformation("User signed up successfully");
 
-            return new CreateMovieResponse(
+            var response = new CreateMovieResponse(
                 movie.Id.ToString(),
                 movie.Title,
                 movie.Overview,
                 movie.CreationDate,
                 movie.LastUpdated
             );
+
+            return new ServiceResponse(
+                Message: "OK",
+                Data: response
+            );
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "An error occurred while deleting a movie");
+            _logger.LogError(ex, "An error occurred while creating a movie");
             throw;
         }
     }
 
-    public async Task<GetMovieResponse> GetOneMovie(Guid id)
+    public async Task<ServiceResponse> GetOneMovie(Guid id)
     {
         try
         {
@@ -52,18 +56,23 @@ public class MovieService : IMovieService
 
             if (movie == null)
             {
-                _logger.LogWarning($"Movie not found for id: {id}");
+                _logger.LogWarning("Movie not found for id: {id}", id);
                 throw new CustomNotFoundException("Movie NotFound");
             }
 
             _logger.LogInformation("Movie retrieved successfully");
 
-            return new GetMovieResponse(
+            var response = new GetMovieResponse(
                 movie.Id.ToString(),
                 movie.Title,
                 movie.Overview,
                 movie.CreationDate,
                 movie.LastUpdated
+            );
+
+            return new ServiceResponse(
+                Message: "OK",
+                Data: response
             );
         }
         catch (Exception ex)
@@ -73,7 +82,7 @@ public class MovieService : IMovieService
         }
     }
 
-    public async Task<string> UpdateMovie(Guid id, CreateMovieRequest data)
+    public async Task<ServiceResponse> UpdateMovie(Guid id, CreateMovieRequest data)
     {
         try
         {
@@ -81,14 +90,24 @@ public class MovieService : IMovieService
 
             if (extMovie == null)
             {
-                _logger.LogWarning($"Movie not found for id: {id}");
+                _logger.LogWarning("Movie not found for id: {id}", id);
                 throw new CustomNotFoundException("Movie NotFound");
             }
 
-            var movie = Movie.UpdateFrom(id, data);
+            var updateData = new UpdateMovieFrom(
+                Title: data.Title,
+                Overview: data.Overview,
+                CreationDate: extMovie.CreationDate
+            );
+
+            var movie = Movie.UpdateFrom(id, updateData);
+
             await _movieRepository.UpdateMovie(movie);
 
-            return "Movie updated successfull";
+            return new ServiceResponse(
+                Message: "UPDATED",
+                Data: new { }
+            );
         }
         catch (Exception ex)
         {
@@ -97,7 +116,7 @@ public class MovieService : IMovieService
         }
     }
 
-    public async Task DeleteMovie(Guid id)
+    public async Task<ServiceResponse> DeleteMovie(Guid id)
     {
         try
         {
@@ -105,11 +124,16 @@ public class MovieService : IMovieService
 
             if (extMovie == null)
             {
-                _logger.LogWarning($"Movie not found for id: {id}");
+                _logger.LogWarning("Movie not found for id: {id}", id);
                 throw new CustomNotFoundException("Movie NotFound");
             }
 
             await _movieRepository.DeleteMovie(id);
+
+            return new ServiceResponse(
+                Message: "DELETED",
+                Data: new { }
+            );
         }
         catch (Exception ex)
         {

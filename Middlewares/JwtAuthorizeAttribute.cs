@@ -1,8 +1,9 @@
+using Microsoft.AspNetCore.Mvc.Filters;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
+using MovieWatchlist.Exceptions;
 
-namespace Middlewares;
+namespace MovieWatchlist.Middlewares;
 
 public class JwtAuthorizeAttribute : Attribute, IAuthorizationFilter
 {
@@ -12,16 +13,11 @@ public class JwtAuthorizeAttribute : Attribute, IAuthorizationFilter
 
         var token = context.HttpContext.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
 
-        var result = jwtValidator.ValidateToken(token);
+        var result = token != null && jwtValidator.ValidateToken(token);
 
         if (string.IsNullOrEmpty(token) || !result)
         {
-            context.Result = new ContentResult()
-            {
-                StatusCode = 403,
-                Content = "No token provided or Invalid token"
-            };
-            return;
+            throw new CustomForbiddenException("Invalid token");
         }
 
         // Extract the payload from the token
@@ -33,4 +29,3 @@ public class JwtAuthorizeAttribute : Attribute, IAuthorizationFilter
         context.HttpContext.Items["Payload"] = payload;
     }
 }
-

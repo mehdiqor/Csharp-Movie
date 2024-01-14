@@ -1,4 +1,4 @@
-namespace MovieWatchlist.RequestCounter;
+namespace MovieWatchlist.Helpers;
 
 public interface IRequestCounter
 {

@@ -1,12 +1,14 @@
 using Microsoft.OpenApi.Models;
 
+namespace MovieWatchlist.Helpers;
+
 public static class SwaggerConfig
 {
     public static void ConfigureSwagger(IServiceCollection services)
     {
         services.AddSwaggerGen(opt =>
         {
-            opt.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+            opt.SwaggerDoc("v1", new OpenApiInfo { Title = "Movie Watchlist", Version = "v1" });
 
             opt.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {
@@ -20,17 +22,17 @@ public static class SwaggerConfig
 
             opt.AddSecurityRequirement(new OpenApiSecurityRequirement
             {
-               {
-                  new OpenApiSecurityScheme
-                  {
-                      Reference = new OpenApiReference
-                      {
-                          Type=ReferenceType.SecurityScheme,
-                          Id="Bearer"
-                      }
-                  },
-                  new string[]{}
-               }
+                {
+                    new OpenApiSecurityScheme
+                    {
+                        Reference = new OpenApiReference
+                        {
+                            Type = ReferenceType.SecurityScheme,
+                            Id = "Bearer"
+                        }
+                    },
+                    Array.Empty<string>()
+                }
             });
         });
     }

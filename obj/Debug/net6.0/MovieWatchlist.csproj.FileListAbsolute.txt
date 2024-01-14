@@ -85,3 +85,14 @@
 /home/mehdi/Desktop/my-codes/MovieWatchlist/bin/Debug/net6.0/tr/FluentValidation.resources.dll
 /home/mehdi/Desktop/my-codes/MovieWatchlist/bin/Debug/net6.0/zh-CN/FluentValidation.resources.dll
 /home/mehdi/Desktop/my-codes/MovieWatchlist/bin/Debug/net6.0/Newtonsoft.Json.dll
+/home/mehdi/Desktop/my-codes/MovieWatchlist/bin/Debug/net6.0/System.Diagnostics.DiagnosticSource.dll
+/home/mehdi/Desktop/my-codes/MovieWatchlist/bin/Debug/net6.0/de/Microsoft.Data.SqlClient.resources.dll
+/home/mehdi/Desktop/my-codes/MovieWatchlist/bin/Debug/net6.0/es/Microsoft.Data.SqlClient.resources.dll
+/home/mehdi/Desktop/my-codes/MovieWatchlist/bin/Debug/net6.0/fr/Microsoft.Data.SqlClient.resources.dll
+/home/mehdi/Desktop/my-codes/MovieWatchlist/bin/Debug/net6.0/it/Microsoft.Data.SqlClient.resources.dll
+/home/mehdi/Desktop/my-codes/MovieWatchlist/bin/Debug/net6.0/ja/Microsoft.Data.SqlClient.resources.dll
+/home/mehdi/Desktop/my-codes/MovieWatchlist/bin/Debug/net6.0/ko/Microsoft.Data.SqlClient.resources.dll
+/home/mehdi/Desktop/my-codes/MovieWatchlist/bin/Debug/net6.0/pt-BR/Microsoft.Data.SqlClient.resources.dll
+/home/mehdi/Desktop/my-codes/MovieWatchlist/bin/Debug/net6.0/ru/Microsoft.Data.SqlClient.resources.dll
+/home/mehdi/Desktop/my-codes/MovieWatchlist/bin/Debug/net6.0/zh-Hans/Microsoft.Data.SqlClient.resources.dll
+/home/mehdi/Desktop/my-codes/MovieWatchlist/bin/Debug/net6.0/zh-Hant/Microsoft.Data.SqlClient.resources.dll

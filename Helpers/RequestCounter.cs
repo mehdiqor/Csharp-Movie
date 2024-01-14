@@ -1,16 +1,11 @@
-namespace MovieWatchlist.RequestCounter;
+namespace MovieWatchlist.Helpers;
 
 public class RequestCounter : IRequestCounter
 {
-    private int count = 0;
-
     public void Increment()
     {
-        count++;
+        Count++;
     }
 
-    public int Count
-    {
-        get { return count; }
-    }
+    public int Count { get; private set; } = 0;
 }

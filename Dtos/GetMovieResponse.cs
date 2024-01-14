@@ -1,4 +1,4 @@
-namespace Dto.Movie;
+namespace MovieWatchlist.Dtos;
 
 public record GetMovieResponse(
     string Id,

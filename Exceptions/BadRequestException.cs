@@ -1,6 +1,8 @@
+namespace MovieWatchlist.Exceptions;
+
 public class CustomBadRequestException : Exception
 {
-    public string Message { get; set; }
+    public sealed override string Message { get; }
     public int StatusCode { get; set; }
 
     public CustomBadRequestException(string message) : base(message)

@@ -1,19 +1,18 @@
-using MovieWatchlist.RequestCounter;
 using Microsoft.EntityFrameworkCore;
-using Repositories.MovieWatchlist;
-using Services.MovieWatchlist;
-using DatabaseConnection;
-using Repositories.User;
-using Services.User;
-using Cryptography;
-using Middlewares;
-using AppStartup;
+using MovieWatchlist.Repositories;
+using MovieWatchlist.Middlewares;
+using MovieWatchlist.Contexts;
+using MovieWatchlist.Managers;
+using MovieWatchlist.Services;
+using MovieWatchlist.Helpers;
+using MovieWatchlist;
 
 var builder = WebApplication.CreateBuilder(args);
 
 {
     // Database Configuration
-    builder.Services.AddDbContext<MovieDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    builder.Services.AddDbContext<MovieDbContext>(options =>
+        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
     builder.Services.AddTransient<DatabaseConnectionVerifier>();
 
     // Global Configurations
@@ -27,8 +26,8 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddControllers();
 
     // Managers
-    builder.Services.AddScoped<UserManager>();
-    builder.Services.AddScoped<MovieManager>();
+    builder.Services.AddScoped<IUserManager, UserManager>();
+    builder.Services.AddScoped<IMovieManager, MovieManager>();
 
     // Services
     builder.Services.AddScoped<IMovieService, MovieService>();
@@ -37,7 +36,6 @@ var builder = WebApplication.CreateBuilder(args);
     // Repositories
     builder.Services.AddScoped<IUserRepository, UserRepository>();
     builder.Services.AddScoped<IMovieRepository, MovieRepository>();
-
 
     // Swagger Configuration
     SwaggerConfig.ConfigureSwagger(builder.Services);
@@ -50,21 +48,18 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-    });
+    app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "Movie Watchlist"); });
 }
 
 {
     // Verify database connection
     StartupTasks.VerifyDatabaseConnection(app);
 
-    // Rquest Timing Middleware
+    // Request Timing Middleware
     app.UseTiming();
 
     // Exception Handler Middleware
-    app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
+    app.UseMiddleware<ExceptionHandlerMiddleware>();
 
     app.UseHttpsRedirection();
     app.UseRouting();
@@ -73,10 +68,7 @@ if (app.Environment.IsDevelopment())
     app.UseAuthentication();
     app.UseAuthorization();
 
-    app.UseEndpoints(endpoints =>
-    {
-        endpoints.MapControllers();
-    });
+    app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 
     app.Run();
 }

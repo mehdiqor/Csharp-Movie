@@ -1,6 +1,8 @@
+namespace MovieWatchlist.Exceptions;
+
 public class CustomNotFoundException : Exception
 {
-    public string Message { get; set; }
+    public override string Message { get; }
     public int StatusCode { get; set; }
 
     public CustomNotFoundException(string message) : base(message)

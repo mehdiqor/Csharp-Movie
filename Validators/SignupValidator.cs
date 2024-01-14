@@ -1,5 +1,5 @@
 using FluentValidation;
-using Dto.User;
+using MovieWatchlist.Dtos;
 
 public class SignupValidator : AbstractValidator<CreateUser>
 {

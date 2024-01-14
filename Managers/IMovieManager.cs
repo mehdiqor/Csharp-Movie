@@ -1,14 +1,11 @@
 using MovieWatchlist.Dtos;
 
-namespace MovieWatchlist.Services;
+namespace MovieWatchlist.Managers;
 
-public interface IMovieService
+public interface IMovieManager
 {
     Task<ServiceResponse> CreateMovie(CreateMovieRequest data);
-
     Task<ServiceResponse> GetOneMovie(Guid id);
-
     Task<ServiceResponse> UpdateMovie(Guid id, CreateMovieRequest data);
-
     Task<ServiceResponse> DeleteMovie(Guid id);
 }

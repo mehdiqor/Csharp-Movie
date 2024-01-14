@@ -1,8 +1,8 @@
 using MovieWatchlist.Dtos;
 
-namespace MovieWatchlist.Services;
+namespace MovieWatchlist.Managers;
 
-public interface IUserService
+public interface IUserManager
 {
     Task<ServiceResponse> SignupUser(CreateUser data);
     Task<ServiceResponse> SigninUser(SigninRequest data);

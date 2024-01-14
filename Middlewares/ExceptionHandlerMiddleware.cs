@@ -1,12 +1,13 @@
-using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Mvc;
+using MovieWatchlist.Exceptions;
 using Newtonsoft.Json;
 
-public class GlobalExceptionHandlerMiddleware
+namespace MovieWatchlist.Middlewares;
+
+public class ExceptionHandlerMiddleware
 {
     private readonly RequestDelegate _next;
 
-    public GlobalExceptionHandlerMiddleware(RequestDelegate next)
+    public ExceptionHandlerMiddleware(RequestDelegate next)
     {
         _next = next;
     }
@@ -23,35 +24,36 @@ public class GlobalExceptionHandlerMiddleware
         }
     }
 
-    private Task HandleExceptionAsync(HttpContext context, Exception exception)
+    private static Task HandleExceptionAsync(HttpContext context, Exception exception)
     {
-        // Log the exception
-        // You can use any logging framework you prefer
+        // Log the exception here
 
-        var errorResponse = new CustomErrorResponse
+        var errorResponse = new CustomErrorResponse(new Dictionary<string, object>())
         {
             Message = exception.Message,
             Status = StatusCodes.Status500InternalServerError,
             Extensions = new Dictionary<string, object>()
         };
 
-        if (exception is CustomValidationException validationException)
+        switch (exception)
         {
-            errorResponse.Message = validationException.Message;
-            errorResponse.Status = validationException.StatusCode;
-            errorResponse.Extensions["errors"] = validationException.Errors;
-        }
-
-        if (exception is CustomBadRequestException badrequestException)
-        {
-            errorResponse.Message = badrequestException.Message;
-            errorResponse.Status = badrequestException.StatusCode;
-        }
-
-        if (exception is CustomNotFoundException notFoundException)
-        {
-            errorResponse.Message = notFoundException.Message;
-            errorResponse.Status = notFoundException.StatusCode;
+            case CustomValidationException validationException:
+                errorResponse.Message = validationException.Message;
+                errorResponse.Status = validationException.StatusCode;
+                errorResponse.Extensions["errors"] = validationException.Errors;
+                break;
+            case CustomBadRequestException badRequestException:
+                errorResponse.Message = badRequestException.Message;
+                errorResponse.Status = badRequestException.StatusCode;
+                break;
+            case CustomNotFoundException notFoundException:
+                errorResponse.Message = notFoundException.Message;
+                errorResponse.Status = notFoundException.StatusCode;
+                break;
+            case CustomForbiddenException forbiddenException:
+                errorResponse.Message = forbiddenException.Message;
+                errorResponse.Status = forbiddenException.StatusCode;
+                break;
         }
 
         // Return a standardized error response

@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
-using UserAuthentication.Models;
-using DatabaseConnection;
-using Dto.User;
+using MovieWatchlist.Contexts;
+using MovieWatchlist.Models;
+using MovieWatchlist.Dtos;
 
-namespace Repositories.User;
+namespace MovieWatchlist.Repositories;
 
 public class UserRepository : IUserRepository
 {
@@ -32,23 +32,16 @@ public class UserRepository : IUserRepository
         }
     }
 
-    public async Task<FindUserResponse?> FindUserByEmail(string email)
+    public async Task<UserAuth> FindUserByEmail(string email)
     {
         var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
         if (user != null)
         {
-            return new FindUserResponse(
-                user.Id.ToString(),
-                user.Fullname,
-                user.Email,
-                user.Password,
-                user.CreationDate,
-                user.LastUpdated
-            );
+            return user;
         }
         else
         {
-            _logger.LogWarning($"No user found with email: {email}");
+            _logger.LogWarning("No user found with email: {email}", email);
             return null;
         }
     }

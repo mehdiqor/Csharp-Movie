@@ -1,7 +1,7 @@
 using MovieWatchlist.Models;
-using Dto.Movie;
+using MovieWatchlist.Dtos;
 
-namespace Repositories.MovieWatchlist;
+namespace MovieWatchlist.Repositories;
 
 public interface IMovieRepository
 {

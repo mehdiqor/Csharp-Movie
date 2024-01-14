@@ -1,5 +1,7 @@
 using FluentValidation;
-using Dto.Movie;
+using MovieWatchlist.Dtos;
+
+namespace MovieWatchlist.Validators;
 
 public class CreateMovieValidator : AbstractValidator<CreateMovieRequest>
 {

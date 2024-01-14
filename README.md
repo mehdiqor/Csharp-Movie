@@ -67,7 +67,7 @@ The API documentation is available at http://localhost:5169/swagger.
 * CustomResponse.cs
 
 #### Helpers
-* CryptoGraphy.cs
+* Cryptography.cs
 * IRequestCounter.cs
 * RequestCounter.cs
 * SwaggerConfig.cs
@@ -136,7 +136,7 @@ The API documentation is available at http://localhost:5169/swagger.
 │   CustomResponse.cs<br>
 │<br>
 └───Helpers<br>
-│   CryptoGraphy.cs<br>
+│   Cryptography.cs<br>
 │   IRequestCounter.cs<br>
 │   RequestCounter.cs<br>
 │   SwaggerConfig.cs<br>

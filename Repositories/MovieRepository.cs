@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using MovieWatchlist.Contexts;
 using MovieWatchlist.Models;
-using DatabaseConnection;
-using Dto.Movie;
+using MovieWatchlist.Dtos;
 
-namespace Repositories.MovieWatchlist;
+namespace MovieWatchlist.Repositories;
 
 public class MovieRepository : IMovieRepository
 {
@@ -32,7 +32,6 @@ public class MovieRepository : IMovieRepository
 
     public async Task<GetMovieResponse> GetOneMovie(Guid id)
     {
-
         var movie = await _context.Movies.FindAsync(id);
         if (movie != null)
         {
@@ -46,7 +45,7 @@ public class MovieRepository : IMovieRepository
         }
         else
         {
-            _logger.LogWarning($"No movie found with id: {id}");
+            _logger.LogWarning("No movie found with id: {id}", id);
             return null;
         }
     }
@@ -55,13 +54,20 @@ public class MovieRepository : IMovieRepository
     {
         try
         {
+            var existingMovie = _context.Movies.Local.SingleOrDefault(m => m.Id == data.Id);
+
+            if (existingMovie != null)
+            {
+                _context.Entry(existingMovie).State = EntityState.Detached;
+            }
+
             _context.Movies.Attach(data);
             _context.Entry(data).State = EntityState.Modified;
             await _context.SaveChangesAsync();
         }
         catch (DbUpdateException ex)
         {
-            _logger.LogError(ex, "An error occurred while updating a movie");
+            _logger.LogError(ex, "An error occurred while updating a movie in database");
             throw;
         }
     }
@@ -76,7 +82,7 @@ public class MovieRepository : IMovieRepository
         }
         catch (DbUpdateException ex)
         {
-            _logger.LogError(ex, "An error occurred while deleting a movie");
+            _logger.LogError(ex, "An error occurred while deleting a movie in database");
             throw;
         }
     }

@@ -1,6 +1,6 @@
-using DatabaseConnection;
+using MovieWatchlist.Contexts;
 
-namespace AppStartup;
+namespace MovieWatchlist;
 
 public static class StartupTasks
 {
