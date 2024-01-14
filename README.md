@@ -22,8 +22,8 @@ The project adheres to Hexagonal Architecture, organizing the code into the foll
 
 - **Controllers**: API endpoints for handling HTTP requests.
 - **Managers**: Interfaces defining contracts for operations related to movies and user management.
-- This layer serves as a bridge between the `Controllers` and `Services`,
-- ensuring a separation of concerns and facilitating easier testing and maintenance.
+This layer serves as a bridge between the `Controllers` and `Services`,
+ensuring a separation of concerns and facilitating easier testing and maintenance.
 - **Services**: Business logic implementation.
 - **Repositories**: Data access layer for interacting with the database.
 - **Models**: Entity representations.
@@ -89,7 +89,7 @@ Access the Swagger UI to test the API endpoints at `http://localhost:7048/swagge
 ## Repository Structure
 
 - This structure provides a high-level overview of the project's organization,
-  making it easier for new contributors to understand where different types of files are located.
+making it easier for new contributors to understand where different types of files are located.
 
 Below is a tree structure of the main directories and files in this repository:
 
